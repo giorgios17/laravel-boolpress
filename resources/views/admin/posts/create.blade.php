@@ -29,6 +29,8 @@
             <div class="text-danger">{{ $message }}</div>
         @enderror
 
+        {{-- UPLOAD IMMAGINI --}}
+        <form action="" method="post" enctype="multipart/form-data"></form>
         {{-- CHECKBOX TAGS --}}
         <p>Tags</p>
         @foreach ($tags as $tag)
