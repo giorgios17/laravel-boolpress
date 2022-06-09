@@ -1,15 +1,11 @@
 <template>
   <header>
     <nav>
-      <ul>
-        <li>
-          <router-link :to="{ name: 'home' }">Home</router-link>
-        </li>
-        <li>
-          <router-link :to="{ name: 'blog' }">Blog</router-link>
-        </li>
-        <li>
-          <router-link :to="{ name: 'contacts' }">Contacts</router-link>
+      <ul class="nav bg-white">
+        <li v-for="(menuItem, index) in menu" :key="index" class="nav-item">
+          <router-link :to="{ name: menuItem.name }" class="nav-link">
+            {{ menuItem.label }}
+          </router-link>
         </li>
       </ul>
     </nav>
@@ -19,6 +15,24 @@
 <script>
 export default {
   name: "HeaderComponent",
+  data() {
+    return {
+      menu: [
+        {
+          name: "home",
+          label: "Home",
+        },
+        {
+          name: "blog",
+          label: "Posts",
+        },
+        {
+          name: "contacts",
+          label: "Contatti",
+        },
+      ],
+    };
+  },
 };
 </script>
 
