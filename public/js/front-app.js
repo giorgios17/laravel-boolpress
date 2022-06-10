@@ -2111,8 +2111,8 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this = this;
 
-    var id = this.$route.params.id;
-    axios.get("http://127.0.0.1:8000/api/" + id).then(function (result) {
+    var slug = this.$route.params.slug;
+    axios.get("http://127.0.0.1:8000/api/" + slug).then(function (result) {
       _this.post = result.data;
     })["catch"](function (error) {
       return console.log(error);
@@ -37809,7 +37809,10 @@ var render = function () {
                       {
                         staticClass: "nav-link",
                         attrs: {
-                          to: { name: "postDetail", params: { id: post.id } },
+                          to: {
+                            name: "postDetail",
+                            params: { slug: post.slug },
+                          },
                         },
                       },
                       [_vm._v("Visualizza post")]
@@ -53960,7 +53963,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     name: 'blog',
     component: _pages_BlogComponent__WEBPACK_IMPORTED_MODULE_3__["default"]
   }, {
-    path: '/blog/:id',
+    path: '/blog/:slug',
     name: 'postDetail',
     component: _pages_PostDetail__WEBPACK_IMPORTED_MODULE_5__["default"]
   }, {

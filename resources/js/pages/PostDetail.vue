@@ -11,9 +11,9 @@ export default {
     };
   },
   mounted() {
-    const id = this.$route.params.id;
+    const slug = this.$route.params.slug;
     axios
-      .get("http://127.0.0.1:8000/api/" + id)
+      .get("http://127.0.0.1:8000/api/" + slug)
       .then((result) => {
         this.post = result.data;
       })
