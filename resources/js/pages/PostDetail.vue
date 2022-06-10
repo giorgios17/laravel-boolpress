@@ -1,5 +1,12 @@
 <template>
-  <div>pagina dettaglio</div>
+  <div class="container">
+    <div v-if="post">
+      {{ post.title }}
+    </div>
+    <div v-else>
+      <p>Caricamento in corso</p>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -11,11 +18,12 @@ export default {
     };
   },
   mounted() {
-    const slug = this.$route.params.slug;
-    axios
-      .get("http://127.0.0.1:8000/api/" + slug)
-      .then((result) => {
-        this.post = result.data;
+    const id = this.$route.params.id;
+    window.axios
+      .get("http://127.0.0.1:8000/api/" + id)
+      .then((data) => {
+        this.post = data.results;
+        console.log(this.post);
       })
       .catch((error) => console.log(error));
   },

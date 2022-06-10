@@ -2101,6 +2101,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "PostDetail",
   data: function data() {
@@ -2111,9 +2118,10 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this = this;
 
-    var slug = this.$route.params.slug;
-    axios.get("http://127.0.0.1:8000/api/" + slug).then(function (result) {
-      _this.post = result.data;
+    var id = this.$route.params.id;
+    window.axios.get("http://127.0.0.1:8000/api/" + id).then(function (data) {
+      _this.post = data.results;
+      console.log(_this.post);
     })["catch"](function (error) {
       return console.log(error);
     });
@@ -37788,8 +37796,8 @@ var render = function () {
       [
         _c("div", { staticClass: "col-12 text-center" }, [_vm._v("BLOG")]),
         _vm._v(" "),
-        _vm._l(_vm.posts, function (post, index) {
-          return _c("div", { key: index, staticClass: "col-12" }, [
+        _vm._l(_vm.posts, function (post) {
+          return _c("div", { key: post.id, staticClass: "col-12" }, [
             _c(
               "div",
               { staticClass: "card", staticStyle: { width: "18rem" } },
@@ -37809,10 +37817,7 @@ var render = function () {
                       {
                         staticClass: "nav-link",
                         attrs: {
-                          to: {
-                            name: "postDetail",
-                            params: { slug: post.slug },
-                          },
+                          to: { name: "postDetail", params: { id: post.id } },
                         },
                       },
                       [_vm._v("Visualizza post")]
@@ -37957,7 +37962,11 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_vm._v("pagina dettaglio")])
+  return _c("div", { staticClass: "container" }, [
+    _vm.post
+      ? _c("div", [_vm._v("\n    " + _vm._s(_vm.post.title) + "\n  ")])
+      : _c("div", [_c("p", [_vm._v("Caricamento in corso")])]),
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -53963,7 +53972,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     name: 'blog',
     component: _pages_BlogComponent__WEBPACK_IMPORTED_MODULE_3__["default"]
   }, {
-    path: '/blog/:slug',
+    path: '/blog/:id',
     name: 'postDetail',
     component: _pages_PostDetail__WEBPACK_IMPORTED_MODULE_5__["default"]
   }, {

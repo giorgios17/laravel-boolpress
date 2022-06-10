@@ -49,7 +49,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $post = Post::where($id)->first();
+        $post = Post::where('id', $id)->with(['category', 'tags'])->first();
         $result =['results'=>$post, 'succes'=> true];
         return  response()->json($result);
 

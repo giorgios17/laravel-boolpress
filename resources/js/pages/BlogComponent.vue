@@ -2,14 +2,14 @@
   <div class="container">
     <div class="row">
       <div class="col-12 text-center">BLOG</div>
-      <div v-for="(post, index) in posts" :key="index" class="col-12">
+      <div v-for="post in posts" :key="post.id" class="col-12">
         <div class="card" style="width: 18rem">
           <div class="card-body">
             <h5 class="card-title">
               {{ post.title }}
             </h5>
             <router-link
-              :to="{ name: 'postDetail', params: { slug: post.slug } }"
+              :to="{ name: 'postDetail', params: { id: post.id } }"
               class="nav-link"
               >Visualizza post</router-link
             >
