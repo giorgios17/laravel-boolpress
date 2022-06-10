@@ -9,7 +9,7 @@
               {{ post.title }}
             </h5>
             <router-link
-              :to="{ name: 'postDetail', params: { id } }"
+              :to="{ name: 'postDetail', params: { slug } }"
               class="nav-link"
               >Visualizza post</router-link
             >

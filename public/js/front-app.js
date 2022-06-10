@@ -37795,7 +37795,10 @@ var render = function () {
                       {
                         staticClass: "nav-link",
                         attrs: {
-                          to: { name: "postDetail", params: { id: _vm.id } },
+                          to: {
+                            name: "postDetail",
+                            params: { slug: _vm.slug },
+                          },
                         },
                       },
                       [_vm._v("Visualizza post")]
