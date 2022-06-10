@@ -9,7 +9,7 @@ class Post extends Model
 {
     //
     //protected $guarded = [''];
-    protected $fillable = ['title', 'content', 'slug', 'category_id'];
+    protected $fillable = ['title', 'content', 'slug', 'category_id', 'cover'];
 
     public function category(){
         return $this->belongsTo('App\Category');

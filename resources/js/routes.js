@@ -6,6 +6,7 @@ Vue.use(VueRouter);
 import HomeComponent from './pages/HomeComponent'
 import BlogComponent from './pages/BlogComponent'
 import ContactsComponent from './pages/ContactsComponent'
+import PostDetail from './pages/PostDetail'
 import NotFoundComponent from './pages/NotFoundComponent'
 
 const router = new VueRouter({
@@ -20,6 +21,11 @@ const router = new VueRouter({
             path: '/blog',
             name: 'blog',
             component: BlogComponent
+        },
+        {
+            path: '/blog/:slug',
+            name: 'postDetail',
+            component: PostDetail
         },
         {
             path: '/contacts',

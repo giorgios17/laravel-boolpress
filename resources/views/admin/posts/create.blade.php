@@ -30,7 +30,11 @@
         @enderror
 
         {{-- UPLOAD IMMAGINI --}}
-        <form action="" method="post" enctype="multipart/form-data"></form>
+        <div class="form-group">
+            <form action="{{ route('admin.posts.store') }}" method="POST" enctype="multipart/form-data">
+                <label for="image">Immagine</label>
+                <input type="file" name="image" />
+        </div>
         {{-- CHECKBOX TAGS --}}
         <p>Tags</p>
         @foreach ($tags as $tag)

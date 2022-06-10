@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use App\Post;
 use App\Category;
 use App\Tag;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -54,12 +55,13 @@ class PostController extends Controller
         ]);
 
         $postData = $request->all();
+        $img_path = Storage::put("uploads", $postData["image"]);
+        $postData['cover'] = $img_path;
         $newPost = new Post();
         $newPost->fill($postData);
         $newPost->slug = Post::uniqueSlug($newPost->title);
         $newPost->save();
         $newPost->tags()->sync($postData['tags']);
-        $newPost->save();
         return redirect()->route('admin.posts.index');
     }
 
