@@ -36,18 +36,15 @@
         {{-- CHECKBOX TAGS --}}
         <p>Tags</p>
         @foreach ($tags as $tag)
-            @if ($errors->any())
-                <div>
-                    <input type="checkbox" name="tags[]" value="{{ $tag->id }}"
-                        {{ in_array($tag->id, old('tags', [])) ? 'checked' : '' }}>
-                    <label> {{ $tag->name }}</label>
-                </div>
-            @else
+            <div>
                 <input type="checkbox" name="tags[]" value="{{ $tag->id }}"
-                    {{ $post->tags->contains($tags) ? 'checked' : '' }}>
+                    {{ $post->tags->contains($tag) ? 'checked' : '' }} />
                 <label> {{ $tag->name }}</label>
-            @endif
+            </div>
         @endforeach
+        @error('tags')
+            <div class="text-danger">{{ $message }}</div>
+        @enderror
         {{-- submit button --}}
         <input class="btn btn-primary mt-5" type="submit">
     </form>
