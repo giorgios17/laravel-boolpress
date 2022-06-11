@@ -11,6 +11,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
         </div>
+        {{-- area contenuto --}}
         <div class="form-group">
             <label for="content">Contenuto</label>
             <textarea class="form-control" name="content" id="content" rows="3">{{ old('content', $post->content) }}</textarea>
@@ -18,6 +19,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
         </div>
+        {{-- seleziona genere --}}
         <select class="form-control" name="category_id">
             <option value="">--Seleziona genere--</option>
             @foreach ($categories as $category)
@@ -31,13 +33,21 @@
         @error('category_id')
             <div class="text-danger">{{ $message }}</div>
         @enderror
+        {{-- CHECKBOX TAGS --}}
         <p>Tags</p>
         @foreach ($tags as $tag)
-            <div>
-                <input type="checkbox" name="tags[]" value="{{ $tag->id }}">
+            @if ($errors->any())
+                <div>
+                    <input type="checkbox" name="tags[]" value="{{ $tag->id }}"
+                        {{ in_array($tag->id, old('tags', [])) ? 'checked' : '' }}>
+                    <label> {{ $tag->name }}</label>
+                </div>
+            @else
+                <input type="checkbox" name="tags[]" value="{{ $tag->id }}"
+                    {{ $post->tags->contains($tags) ? 'checked' : '' }}>
                 <label> {{ $tag->name }}</label>
-            </div>
-        @endforeach
-        <input class="btn btn-primary mt-5" type="submit">
+            @endforeach
+            {{-- submit button --}}
+            <input class="btn btn-primary mt-5" type="submit">
     </form>
 @endsection

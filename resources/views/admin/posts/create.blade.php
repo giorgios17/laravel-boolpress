@@ -10,7 +10,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
         </div>
-
+        {{-- area contenuto --}}
         <div class="form-group">
             <label for="content">Contenuto</label>
             <textarea class="form-control" name="content" id="content" rows="3">{{ old('content') }}</textarea>
@@ -18,6 +18,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
         </div>
+        {{-- seleziona genere --}}
         <select class="form-control mb-5" name="category_id">
             <option value="">--Seleziona genere--</option>
             @foreach ($categories as $category)
@@ -44,6 +45,9 @@
                 <label> {{ $tag->name }}</label>
             </div>
         @endforeach
+        @error('tags')
+            <div class="text-danger">{{ $message }}</div>
+        @enderror
 
         {{-- submit button --}}
         <input class="btn btn-primary mt-3" type="submit">
