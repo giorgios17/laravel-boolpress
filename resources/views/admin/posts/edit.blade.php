@@ -46,8 +46,9 @@
                 <input type="checkbox" name="tags[]" value="{{ $tag->id }}"
                     {{ $post->tags->contains($tags) ? 'checked' : '' }}>
                 <label> {{ $tag->name }}</label>
-            @endforeach
-            {{-- submit button --}}
-            <input class="btn btn-primary mt-5" type="submit">
+            @endif
+        @endforeach
+        {{-- submit button --}}
+        <input class="btn btn-primary mt-5" type="submit">
     </form>
 @endsection
