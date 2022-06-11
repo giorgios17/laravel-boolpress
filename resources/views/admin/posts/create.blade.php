@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 @section('content')
-    <form action="{{ route('admin.posts.store') }}" method="post">
+    <form action="{{ route('admin.posts.store') }}" method="post" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
             <label for="title">Titolo</label>
@@ -32,9 +32,8 @@
 
         {{-- UPLOAD IMMAGINI --}}
         <div class="form-group">
-            <form action="{{ route('admin.posts.store') }}" method="POST" enctype="multipart/form-data">
-                <label for="image">Immagine</label>
-                <input type="file" name="image" />
+            <label for="image">Immagine</label>
+            <input type="file" name="image" />
         </div>
         {{-- CHECKBOX TAGS --}}
         <p>Tags</p>

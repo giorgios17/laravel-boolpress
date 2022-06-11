@@ -51,12 +51,15 @@ class PostController extends Controller
             'title'=> 'required|max:255',
             'content'=> 'required',
             'category_id'=>'required',
-            'tags[]'=>'exists:tags,id'
+            'tags[]'=>'exists:tags,id',
+            'image'=>'nullable|image'
         ]);
 
         $postData = $request->all();
-        $img_path = Storage::put("uploads", $postData["image"]);
-        $postData['cover'] = $img_path;
+        if(array_key_exists('image', $postData)){
+            $img_path = Storage::put("uploads", $postData["image"]);
+            $postData['cover'] = $img_path;
+        }
         $newPost = new Post();
         $newPost->fill($postData);
         $newPost->slug = Post::uniqueSlug($newPost->title);
