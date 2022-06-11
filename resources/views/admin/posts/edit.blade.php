@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 @section('content')
-    <form action="{{ route('admin.posts.update', $post->id) }}" method="post">
+    <form action="{{ route('admin.posts.update', $post->id) }}" method="post" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <div class="form-group">
@@ -20,7 +20,7 @@
             @enderror
         </div>
         {{-- seleziona genere --}}
-        <select class="form-control" name="category_id">
+        <select class="form-control mb-5" name="category_id">
             <option value="">--Seleziona genere--</option>
             @foreach ($categories as $category)
                 <option value="{{ $category->id }}"
@@ -33,6 +33,16 @@
         @error('category_id')
             <div class="text-danger">{{ $message }}</div>
         @enderror
+        {{-- UPLOAD IMMAGINI --}}
+        <div class="form-group">
+            @if ($post->cover)
+                <div class="cover-img my-3">
+                    <img src="{{ asset('storage/' . $post->cover) }}">
+                </div>
+            @endif
+            <label for="image">Carica cover</label>
+            <input type="file" name="image" />
+        </div>
         {{-- CHECKBOX TAGS --}}
         <p>Tags</p>
         @foreach ($tags as $tag)

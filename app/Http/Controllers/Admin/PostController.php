@@ -110,16 +110,24 @@ class PostController extends Controller
             'title'=> 'required|max:255',
             'content'=> 'required',
             'category_id'=>'required',
-            'tags[]'=>'exists:tags,id'
+            'tags[]'=>'exists:tags,id',
+            'image'=>'nullable|image'
 
         ]);
 
         $post = Post::findOrFail($id);
-        $data = $request->all();
-        $post->fill($data);
+        $postData = $request->all();
+        if(array_key_exists('image', $postData)){
+            if($post->cover){
+                Storage::delete($post->cover);
+            }
+            $img_path = Storage::put("uploads", $postData["image"]);
+            $postData['cover'] = $img_path;
+        }
+        $post->fill($postData);
         $post->slug = Post::uniqueSlug($post->title);
         $post->save();
-        $post->tags()->sync($data['tags']);
+        $post->tags()->sync($postData['tags']);
         $post->save();
 
         return redirect()->route('admin.posts.index', $post->id);
@@ -136,6 +144,9 @@ class PostController extends Controller
         //
         $post = Post::findOrFail($id);
         $post->tags()->sync([]);
+        if($post->cover){
+            Storage::delete($post->cover);
+        }
         $post->delete();
         return redirect()->route('admin.posts.index');
     }

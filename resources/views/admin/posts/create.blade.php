@@ -32,7 +32,7 @@
 
         {{-- UPLOAD IMMAGINI --}}
         <div class="form-group">
-            <label for="image">Immagine</label>
+            <label for="image">Carica cover</label>
             <input type="file" name="image" />
         </div>
         {{-- CHECKBOX TAGS --}}

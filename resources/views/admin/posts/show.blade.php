@@ -15,6 +15,11 @@
             </button>
         </form>
     </div>
+    @if ($post->cover)
+        <div class="cover-img">
+            <img src="{{ asset('storage/' . $post->cover) }}">
+        </div>
+    @endif
     <div class="mt-3">
         <h3>{{ $post->title }}</h3>
         <p>{{ $post->content }}</p>
