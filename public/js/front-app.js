@@ -2000,6 +2000,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "BlogComponent",
   data: function data() {
@@ -2010,8 +2017,8 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this = this;
 
-    axios.get("http://127.0.0.1:8000/api").then(function (result) {
-      _this.posts = result.data;
+    axios.get("http://127.0.0.1:8000/api/posts").then(function (results) {
+      _this.posts = results.data;
     })["catch"](function (error) {
       return console.log(error);
     });
@@ -2116,15 +2123,28 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
-    var _this = this;
+    this.getPost();
+  },
+  methods: {
+    getPost: function getPost() {
+      var _this = this;
 
-    var id = this.$route.params.id;
-    window.axios.get("http://127.0.0.1:8000/api/" + id).then(function (data) {
-      _this.post = data.results;
-      console.log(_this.post);
-    })["catch"](function (error) {
-      return console.log(error);
-    });
+      var id = this.$route.params.id;
+      console.log("parametro id" + id);
+      window.axios.get("http://127.0.0.1:8000/api/posts" + {
+        params: {
+          id: 2
+        }
+      }).then(function (_ref) {
+        var status = _ref.status,
+            data = _ref.data;
+        console.log("data?", data);
+        if (status === 200 && data.success) _this.post = data.result;
+        console.log(_this.post);
+      })["catch"](function (e) {
+        return console.log(e);
+      });
+    }
   }
 });
 
@@ -37806,6 +37826,15 @@ var render = function () {
                   "div",
                   { staticClass: "card-body" },
                   [
+                    post.cover
+                      ? _c("div", [
+                          _c("img", {
+                            staticClass: "card-img-top",
+                            attrs: { src: "storage/" + post.cover, alt: "..." },
+                          }),
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
                     _c("h5", { staticClass: "card-title" }, [
                       _vm._v(
                         "\n            " + _vm._s(post.title) + "\n          "
@@ -37964,7 +37993,7 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
     _vm.post
-      ? _c("div", [_vm._v("\n    " + _vm._s(_vm.post.title) + "\n  ")])
+      ? _c("div", [_vm._v("\n    " + _vm._s(_vm.post) + "\n  ")])
       : _c("div", [_c("p", [_vm._v("Caricamento in corso")])]),
   ])
 }
@@ -53581,7 +53610,7 @@ var app = new Vue({
   },
   router: _routes__WEBPACK_IMPORTED_MODULE_1__["default"],
   mounted: function mounted() {
-    axios.get('http://127.0.0.1:8000/api').then(function (results) {
+    axios.get('http://127.0.0.1:8000/api/posts').then(function (results) {
       console.log(results);
     })["catch"](function (error) {
       return console.log(error);

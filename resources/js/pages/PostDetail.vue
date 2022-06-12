@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div v-if="post">
-      {{ post.title }}
+      {{ post }}
     </div>
     <div v-else>
       <p>Caricamento in corso</p>
@@ -18,14 +18,21 @@ export default {
     };
   },
   mounted() {
-    const id = this.$route.params.id;
-    window.axios
-      .get("http://127.0.0.1:8000/api/" + id)
-      .then((data) => {
-        this.post = data.results;
-        console.log(this.post);
-      })
-      .catch((error) => console.log(error));
+    this.getPost();
+  },
+  methods: {
+    getPost() {
+      const id = this.$route.params.id;
+      console.log("parametro id" + id);
+      window.axios
+        .get("http://127.0.0.1:8000/api/posts" + { params: { id: 2 } })
+        .then(({ status, data }) => {
+          console.log("data?", data);
+          if (status === 200 && data.success) this.post = data.result;
+          console.log(this.post);
+        })
+        .catch((e) => console.log(e));
+    },
   },
 };
 </script>

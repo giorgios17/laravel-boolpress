@@ -39,6 +39,6 @@ const app = new Vue({
     render: h => h(AppComponent),
     router,
     mounted() {
-        axios.get('http://127.0.0.1:8000/api').then(results => { console.log(results); }).catch(error => console.log(error));
+        axios.get('http://127.0.0.1:8000/api/posts').then(results => { console.log(results); }).catch(error => console.log(error));
     }
 });

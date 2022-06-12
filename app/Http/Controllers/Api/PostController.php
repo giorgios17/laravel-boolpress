@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Post;
 
-class UserController extends Controller
+class PostController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -49,9 +49,9 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $post = Post::where('id', $id)->with(['category', 'tags'])->first();
-        $result =['results'=>$post, 'succes'=> true];
-        return  response()->json($result);
+        $post = Post::where('id', $id)->with(['category','tags'])->first();
+        //$result =['results'=>$post, 'success'=> true];
+        return  response()->json($post);
 
     }
 
